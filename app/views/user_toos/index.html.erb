@@ -1,0 +1,21 @@
+<h1>Listing user_toos</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @user_toos.each do |user_too| %>
+  <tr>
+    <td><%= link_to 'Show', user_too %></td>
+    <td><%= link_to 'Edit', edit_user_too_path(user_too) %></td>
+    <td><%= link_to 'Destroy', user_too, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New User too', new_user_too_path %>
