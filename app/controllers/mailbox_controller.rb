@@ -13,7 +13,7 @@
 # limitations under the License.
 
 class MailboxController < ApplicationController
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
 
   def index
     if User.current

@@ -35,7 +35,7 @@ class BatchController < ApplicationController
 
   def update
     #ScholarSphere::GenericFile::Permissions.parse_permissions(params)
-    authenticate_user!
+    #authenticate_user!
     @batch =  Batch.find_or_create(params[:id])
     @batch.status="processing"
     @batch.save

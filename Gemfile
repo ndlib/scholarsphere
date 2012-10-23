@@ -27,6 +27,7 @@ gem 'resque-pool', '0.3.0'
 # NOTE: the :require arg is necessary on Linux-based hosts
 gem 'rmagick', '2.13.1', :require => 'RMagick'
 gem 'devise', '2.1.2'
+gem 'devise_cas_authenticatable'
 gem 'paperclip', '3.3.0'
 gem 'daemons', '1.1.9'
 gem 'execjs', '1.4.0'

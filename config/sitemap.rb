@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-Sitemap::Generator.instance.load host: 'scholarsphere.psu.edu' do
+Sitemap::Generator.instance.load host: 'localhost' do
   path :root, priority: 1, change_frequency: 'daily'
   path :catalog_index, priority: 1, change_frequency: 'daily'
   User.all.each do |user|

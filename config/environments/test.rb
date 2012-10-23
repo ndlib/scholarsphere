@@ -48,8 +48,8 @@ ScholarSphere::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
-  config.logout_url = 'https://webaccess.psu.edu/cgi-bin/logout?http://localhost/'
-  config.login_url = 'https://webaccess.psu.edu?cosign-localhost&https://localhost/'
+  config.logout_url ='http://localhost' #  'https://webaccess.psu.edu/cgi-bin/logout?http://localhost/'
+  config.login_url = 'http://localhost' # 'https://webaccess.psu.edu?cosign-localhost&https://localhost/'
 
-  config.contact_email = 'dmc186@psu.edu'
+  config.contact_email = 'admin@localhost'
 end

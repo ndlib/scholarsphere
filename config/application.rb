@@ -45,7 +45,7 @@ module ScholarSphere
     config.max_days_between_audits = 7
     config.id_namespace = "scholarsphere"
     config.application_name = "ScholarSphere"
-    config.persistent_hostpath = "http://scholarsphere.psu.edu/files/"
+    config.persistent_hostpath = "http://localhost/files/"
     # turning on the new asset pipeline for handling javascript, css, and image files
     config.assets.enabled = true
     config.assets.paths << '#{Rails.root}/app/assets/javascripts'
@@ -60,7 +60,7 @@ module ScholarSphere
 
     # email to send on contact form - probably need one for the production
     # environment
-    config.contact_email = 'DLT-GAMMA-PROJECT@lists.psu.edu'
+    config.contact_email = 'DLT-GAMMA-PROJECT@localhost'
 
     config.fits_to_desc_mapping = {
       :file_title => :title,
@@ -69,18 +69,17 @@ module ScholarSphere
 
     # Map hostnames onto Google Analytics tracking IDs
     config.ga_host_map = {
-      'scholarsphere-test.dlt.psu.edu' => 'UA-33252017-1',
-      'scholarsphere.psu.edu' => 'UA-33252017-2',
+      'localhost' => '',
     }
 
     # Map hostnames onto vhosts
     config.hosts_vhosts_map = {
-      'fedora1test' => 'https://scholarsphere-integration.dlt.psu.edu:8443/',
-      'fedora2test' => 'https://scholarsphere-test.dlt.psu.edu/',
-      'ss1stage' => 'https://scholarsphere-staging.dlt.psu.edu/',
-      'ss2stage' => 'https://scholarsphere-staging.dlt.psu.edu/',
-      'ss1prod' => 'https://scholarsphere.psu.edu/',
-      'ss2prod' => 'https://scholarsphere.psu.edu/'
+      'fedora1test' => 'https://localhost:8443/',
+      'fedora2test' => 'https://localhost/',
+      'ss1stage' => 'https://localhost/',
+      'ss2stage' => 'https://localhost/',
+      'ss1prod' => 'https://localhost/',
+      'ss2prod' => 'https://localhost/'
     }
 
     config.resource_types = {

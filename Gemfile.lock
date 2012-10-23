@@ -195,6 +195,9 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    devise_cas_authenticatable (1.1.2)
+      devise (>= 1.0.6)
+      rubycas-client (>= 2.2.1)
     diff-lcs (1.1.3)
     equivalent-xml (0.2.9)
       nokogiri (>= 1.4.3)
@@ -360,6 +363,8 @@ GEM
       railties (>= 3.0)
       rspec (~> 2.11.0)
     ruby-prof (0.11.2)
+    rubycas-client (2.3.9)
+      activesupport
     rubydora (0.5.13)
       activemodel
       activesupport
@@ -465,6 +470,7 @@ DEPENDENCIES
   database_cleaner
   debugger
   devise (= 2.1.2)
+  devise_cas_authenticatable
   execjs (= 1.4.0)
   factory_girl_rails (~> 4.1.0)
   headless

@@ -97,7 +97,7 @@ limitations under the License.
     <div id="new-user"> 
       <div class="input-append">
         <p class="help-block">Enter Penn State Access Account Id (one at a time)</p>
-        <%= text_field_tag 'new_user_name_skel', nil, :class => "span29" %><span class="add-on">@psu.edu</span>
+        <%= text_field_tag 'new_user_name_skel', nil, :class => "span29" %><span class="add-on">@nd.edu</span>
         <%= select_tag 'new_user_permission_skel', options_for_select(ScholarSphere::Application::config.permission_levels), :class=> 'span17' %>
         <button class="btn btn-mini btn-inverse" id="add_new_user_skel"><i class="icon-plus-sign"></i> Add</button>
         <br /> <span id="directory_user_result"></span> 

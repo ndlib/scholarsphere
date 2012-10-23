@@ -34,7 +34,7 @@ class ContactForm < MailForm::Base
     {
       :subject => "Contact Form:#{subject}",
       :to => ScholarSphere::Application.config.contact_email, 
-      :from => "ScholarSphere Form <scholarsphere-service-support@dlt.psu.edu>"
+      :from => "ScholarSphere Form <scholarsphere-service-support@example.edu>"
     }
   end
 end

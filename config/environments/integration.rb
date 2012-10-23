@@ -42,8 +42,8 @@ ScholarSphere::Application.configure do
 
   config.log_level = :debug
 
-  config.logout_url = 'https://webaccess.psu.edu/cgi-bin/logout?https://scholarsphere-integration.dlt.psu.edu:8443/'
-  config.login_url = 'https://webaccess.psu.edu?cosign-scholarsphere-integration.dlt.psu.edu-8443&https://scholarsphere-integration.dlt.psu.edu:8443/'
+  config.logout_url = 'http://localhost' # 'https://webaccess.psu.edu/cgi-bin/logout?https://scholarsphere-integration.dlt.psu.edu:8443/'
+  config.login_url = 'http://localhost' # 'https://webaccess.psu.edu?cosign-scholarsphere-integration.dlt.psu.edu-8443&https://scholarsphere-integration.dlt.psu.edu:8443/'
 
 end
 

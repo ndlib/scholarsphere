@@ -44,7 +44,7 @@ ScholarSphere::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.logout_url = 'https://webaccess.psu.edu/cgi-bin/logout?http://localhost:3000/'
-  config.login_url = 'https://webaccess.psu.edu?cosign-localhost&http://localhost:3000/'
+  config.logout_url = 'http://cas.library.nd.edu' # 'https://webaccess.psu.edu/cgi-bin/logout?http://localhost:3000/'
+  config.login_url = 'http://cas.library.nd.edu/cas/login?service=http://localhost:8080' # 'https://webaccess.psu.edu?cosign-localhost&http://localhost:3000/'
 end
 

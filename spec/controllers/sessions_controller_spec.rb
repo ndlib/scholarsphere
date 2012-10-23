@@ -27,8 +27,8 @@ describe SessionsController do
   end
   describe "#destroy" do
     it "should redirect to the central logout page and destroy the cookie" do
-      request.env['COSIGN_SERVICE'] = 'cosign-gamma-ci.dlt.psu.edu'
-      cookies.expects(:delete).with('cosign-gamma-ci.dlt.psu.edu')
+      request.env['COSIGN_SERVICE'] = 'h' # 'cosign-gamma-ci.dlt.psu.edu'
+      cookies.expects(:delete).with('h') #  'cosign-gamma-ci.dlt.psu.edu')
       get :destroy
       response.should redirect_to ScholarSphere::Application.config.logout_url
     end
