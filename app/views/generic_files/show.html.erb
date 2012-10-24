@@ -253,14 +253,14 @@ var addthis_config = {"data_track_addressbar":true};
               <% label = label.humanize %>
               <% if values.is_a? Array %>
                 <% length = values.length %>
-                <% length = ScholarSphere::Application::config.fits_message_length-1 if term == :status_message %>
-                <% values[0..length].each_with_index do |value, idx| %>
+                <% length = ScholarSphere::Application::config.fits_message_length if term == :status_message %>
+                <% values[0..length-1].each_with_index do |value, idx| %>
                   <% next if value.empty? %>
                   <%= "#{label}: #{value.truncate(250)}" %>
                   <%= "<br />".html_safe unless idx == length %> 
                 <% end %>
-                <% if length != values.length %>
-                   <%= render :partial => "generic_files/extra_fields_modal", :locals=>{:name=>term, :values=> values, :start=>ScholarSphere::Application::config.fits_message_length}%>
+                <% if length < values.length %>
+                   <%= render :partial => "generic_files/extra_fields_modal", :locals=>{:name=>term, :values=> values, :start=>length}%>
                 <% end %>
               <% else %>
                 <%= "#{label}: #{values.truncate(250)}" %><br />
