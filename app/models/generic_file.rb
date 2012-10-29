@@ -102,6 +102,7 @@ class GenericFile < ActiveFedora::Base
 
   def retry_warming
       save_tries = 0
+      conflict_tries = 0
       begin
         yield
       rescue RSolr::Error::Http => error
@@ -109,6 +110,12 @@ class GenericFile < ActiveFedora::Base
         logger.warn "Retry Solr caught RSOLR error on #{self.pid}: #{error.inspect}"
         # fail for good if the tries is greater than 3
         rescue_action_without_handler(error) if save_tries >=3
+        sleep 0.01
+        retry
+      rescue  ActiveResource::ResourceConflict => error
+        conflict_tries += 1
+        logger.warn "Retry caught Active Resource Conflict #{self.pid}: #{error.inspect}"
+        rescue_action_without_handler(error) if conflict_tries >=10
         sleep 0.01
         retry
       end
@@ -669,6 +676,7 @@ class GenericFile < ActiveFedora::Base
   # Is this file in the middle of being processed by a batch?
   def processing?
      return false if self.batch.blank?
+     return false if !self.batch.methods.include? :status
      return (!self.batch.status.empty?) && (self.batch.status.count == 1) && (self.batch.status[0] == "processing")
   end
 
