@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'socket'
+
 rails_root = ENV['RAILS_ROOT'] || "#{File.dirname(__FILE__)}/../.."
 rails_env = ENV['RAILS_ENV'] || 'development'
 
@@ -19,4 +21,9 @@ config = YAML::load(ERB.new(IO.read(File.join(Rails.root, 'config', 'redis.yml')
 Resque.redis = Redis.new(host: config[:host], port: config[:port], thread_safe: true)
 
 Resque.inline = rails_env == 'test'
-Resque.redis.namespace = "scholarsphere:#{rails_env}"
+
+if rails_env == 'development'
+  Resque.redis.namespace = "ss-#{Socket.gethostname.split(".").first}"
+else
+  Resque.redis.namespace = "scholarsphere:#{rails_env}"
+end
