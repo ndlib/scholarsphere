@@ -1,11 +1,3 @@
-# These files should be copied from the $file.yml.sample and tweaked
-# per environment.
-config/database.yml
-config/fedora.yml
-config/solr.yml
-config/hydra-ldap.yml
-config/redis.yml
-
 # This file is generated automatically by: rake scholarsphere:generate_secret
 config/initializers/secret_token.rb
 
