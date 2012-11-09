@@ -41,3 +41,13 @@ To start server
 To start resque monitoring page
 
     resque-web -r libvirt1.library.nd.edu -N scholarsphere:development
+
+# Attribution
+
+From Mike Giarlo:
+
+> OK, ScholarSphere's service owner is cool with attribution in the form
+> of a link to http://scholarsphere.psu.edu/ with anchor text, "Built on
+> Penn State ScholarSphere".  We care less about the verb in that
+> sentence, and more that the "Penn State ScholarSphere" string and the
+> link are there.  Thanks much for offering!
