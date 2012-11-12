@@ -40,7 +40,8 @@ gem 'nest', '1.1.1'
 gem 'sitemap', '0.3.2'
 gem 'yaml_db', '0.2.3'
 gem 'mailboxer', '0.8.0'
-gem 'clamav', '0.4.1'
+# Don't need anti-virus, yet
+#gem 'clamav', '0.4.1'
 gem 'rainbow', '1.1.4'
 gem 'will_paginate', '3.0.3'
 

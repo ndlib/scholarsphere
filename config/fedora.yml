@@ -19,3 +19,7 @@ production:
   validateChecksum: true
 cucumber:
   <<: *TEST
+dlvecnet:
+  url: http://fedoraAdmin:fedoraAdmin@127.0.0.1:8080/fedora
+  user: fedoraAdmin
+  password: fedoraAdmin

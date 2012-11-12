@@ -13,3 +13,6 @@ production:
 resque:
   host: libvirt1.library.nd.edu
   port: 6379
+dlvecnet:
+  host: localhost
+  port: 6379

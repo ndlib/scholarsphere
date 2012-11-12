@@ -43,8 +43,8 @@ module ScholarSphere
     # -- all .rb files in that directory are automatically loaded.
     config.fits_path = '/Users/dbrower/Documents/fits-0.6.1/fits.sh'
     config.max_days_between_audits = 7
-    config.id_namespace = "scholarsphere"
-    config.application_name = "ScholarSphere"
+    config.id_namespace = "vecnet"
+    config.application_name = "VECNet"
     config.persistent_hostpath = "http://localhost/files/"
     # turning on the new asset pipeline for handling javascript, css, and image files
     config.assets.enabled = true
