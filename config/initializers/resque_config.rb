@@ -25,5 +25,5 @@ Resque.inline = rails_env == 'test'
 if rails_env == 'development'
   Resque.redis.namespace = "ss-#{Socket.gethostname.split(".").first}"
 else
-  Resque.redis.namespace = "scholarsphere:#{rails_env}"
+  Resque.redis.namespace = "vecnet:#{rails_env}"
 end

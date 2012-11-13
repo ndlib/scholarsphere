@@ -12,3 +12,5 @@ production:
   url: http:/_HOST_:_PORT_/_solar_production_instance_
 dlvecnet:
   url: http://localhost:8081/solr
+jcudeploy:
+  url: http://localhost:8080/solr

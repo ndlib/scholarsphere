@@ -16,3 +16,6 @@ resque:
 dlvecnet:
   host: localhost
   port: 6379
+jcudeploy:
+  host: localhost
+  port: 6379
