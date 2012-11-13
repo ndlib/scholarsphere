@@ -17,7 +17,7 @@ gem 'hydra-head', :git => 'https://github.com/projecthydra/hydra-head.git', :ref
 gem 'active-fedora', '4.5.0'
 gem 'rubydora', '0.5.13'
 gem 'solrizer-fedora', '2.2.0'
-gem 'hydra-ldap', '0.1.0'
+#gem 'hydra-ldap', '0.1.0'
 gem 'noid', '0.5.5'
 gem 'hydra-batch-edit', :git=>'git://github.com/psu-stewardship/hydra-batch-edit.git', :ref => 'b753c7aeac'
 
@@ -27,7 +27,6 @@ gem 'resque-pool', '0.3.0'
 # NOTE: the :require arg is necessary on Linux-based hosts
 gem 'rmagick', '2.13.1', :require => 'RMagick'
 gem 'devise', '2.1.2'
-gem 'devise_cas_authenticatable'
 gem 'paperclip', '3.3.0'
 gem 'daemons', '1.1.9'
 gem 'execjs', '1.4.0'

@@ -45,8 +45,8 @@ ScholarSphere::Application.routes.draw do
   resources :downloads, :only => "show"
 
   # Login/logout route to destroy session
-  match 'logout' => 'sessions#destroy', :as => :destroy_user_session
-  match 'login' => 'sessions#new', :as => :new_user_session
+  #match 'logout' => 'sessions#destroy', :as => :destroy_user_session
+  #match 'login' => 'sessions#new', :as => :new_user_session
 
   # Messages
   match 'notifications' => 'mailbox#index', :as => :mailbox

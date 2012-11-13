@@ -24,10 +24,11 @@ class User < ActiveRecord::Base
 
   Devise.add_module(:http_header_authenticatable,
                     :strategy => true,
-                    :controller => :sessions,
+                    #:controller => :sessions,
                     :model => 'devise/models/http_header_authenticatable')
 
-  devise :http_header_authenticatable
+  devise :database_authenticatable, :registerable,
+       :recoverable, :rememberable, :validatable
 
   # set this up as a messageable object
   acts_as_messageable
@@ -84,21 +85,22 @@ class User < ActiveRecord::Base
   end
 
   def ldap_exist!
-    exist = retry_unless(7.times, lambda { Hydra::LDAP.connection.get_operation_result.code == 53 }) do
-      Hydra::LDAP.does_user_exist?(Net::LDAP::Filter.eq('uid', login))
-    end rescue false
-    if Hydra::LDAP.connection.get_operation_result.code == 0
-      logger.debug "exist = #{exist}"
-      attrs = {}
-      attrs[:ldap_available] = exist
-      attrs[:ldap_last_update] = Time.now
-      update_attributes(attrs)
-      # TODO: Should we retry here if the code is 51-53???
-    else
-      logger.warn "LDAP error checking exists for #{login}, reason (code: #{Hydra::LDAP.connection.get_operation_result.code}): #{Hydra::LDAP.connection.get_operation_result.message}"
-      return false
-    end
-    return exist
+    return true
+    #exist = retry_unless(7.times, lambda { Hydra::LDAP.connection.get_operation_result.code == 53 }) do
+    #  Hydra::LDAP.does_user_exist?(Net::LDAP::Filter.eq('uid', login))
+    #end rescue false
+    #if Hydra::LDAP.connection.get_operation_result.code == 0
+    #  logger.debug "exist = #{exist}"
+    #  attrs = {}
+    #  attrs[:ldap_available] = exist
+    #  attrs[:ldap_last_update] = Time.now
+    #  update_attributes(attrs)
+    #  # TODO: Should we retry here if the code is 51-53???
+    #else
+    #  logger.warn "LDAP error checking exists for #{login}, reason (code: #{Hydra::LDAP.connection.get_operation_result.code}): #{Hydra::LDAP.connection.get_operation_result.message}"
+    #  return false
+    #end
+    #return exist
   end
 
   # Groups that user is a member of
@@ -129,15 +131,17 @@ class User < ActiveRecord::Base
   end
 
   def self.groups(login)
-    groups = retry_unless(7.times, lambda { Hydra::LDAP.connection.get_operation_result.code == 53 }) do
-      Hydra::LDAP.groups_for_user(Net::LDAP::Filter.eq('uid', login)) do |result|
-        result.first[:psmemberof].select{ |y| y.starts_with? 'cn=umg/' }.map{ |x| x.sub(/^cn=/, '').sub(/,dc=psu,dc=edu/, '') }
-      end rescue []
-    end
-    return groups
+    return []
+    #groups = retry_unless(7.times, lambda { Hydra::LDAP.connection.get_operation_result.code == 53 }) do
+    #  Hydra::LDAP.groups_for_user(Net::LDAP::Filter.eq('uid', login)) do |result|
+    #    result.first[:psmemberof].select{ |y| y.starts_with? 'cn=umg/' }.map{ |x| x.sub(/^cn=/, '').sub(/,dc=psu,dc=edu/, '') }
+    #  end rescue []
+    #end
+    #return groups
   end
 
   def populate_attributes
+    return
     #update exist cache
     exist = ldap_exist!
     logger.warn "No ldapentry exists for #{login}" unless exist
@@ -172,10 +176,11 @@ class User < ActiveRecord::Base
   end
 
   def self.directory_attributes(login, attrs=[])
-    attrs = retry_unless(7.times, lambda { Hydra::LDAP.connection.get_operation_result.code == 53 }) do
-      Hydra::LDAP.get_user(Net::LDAP::Filter.eq('uid', login), attrs)
-    end rescue []
-    return attrs
+    return []
+    #attrs = retry_unless(7.times, lambda { Hydra::LDAP.connection.get_operation_result.code == 53 }) do
+    #  Hydra::LDAP.get_user(Net::LDAP::Filter.eq('uid', login), attrs)
+    #end rescue []
+    #return attrs
   end
 
   def ability

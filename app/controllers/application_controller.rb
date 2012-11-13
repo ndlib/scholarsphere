@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   include Hydra::Controller::ControllerBehavior
 
   ## Force the session to be restarted on every request.  The ensures that when the REMOTE_USER header is not set, the user will be logged out.
-  before_filter :clear_session_user
+  #before_filter :clear_session_user
   before_filter :set_current_user
   before_filter :filter_notify
   before_filter :notifications_number
@@ -30,7 +30,6 @@ class ApplicationController < ActionController::Base
   rescue_from ActionView::Template::Error, :with => :render_500
   rescue_from ActiveRecord::StatementInvalid, :with => :render_500
   rescue_from Mysql2::Error, :with => :render_500
-  rescue_from Net::LDAP::LdapError, :with => :render_500
   rescue_from RSolr::Error::Http, :with => :render_500
   rescue_from Blacklight::Exceptions::ECONNREFUSED, :with => :render_500
   rescue_from Errno::ECONNREFUSED, :with => :render_500
@@ -46,6 +45,10 @@ class ApplicationController < ActionController::Base
     'hydra-head'
   end
 
+  def after_sign_in_path_for(resource)
+    dashboard_url
+  end
+
   def current_ability
     current_user.ability
   end
@@ -59,10 +62,6 @@ class ApplicationController < ActionController::Base
     # only logout if the REMOTE_USER is not set in the HTTP headers and a user is set within warden
     # logout clears the entire session including flash messages
     request.env['warden'].logout unless user_logged_in?
-  end
-
-  def current_user
-    User.first
   end
 
   def set_current_user
