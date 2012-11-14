@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 %>
 
-<%
+<%#
 tracking_id = ScholarSphere::Application.config.ga_host_map[request.host]
 unless tracking_id.blank?
 %>
 <script type="text/javascript">
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '<%= tracking_id %>']);
+  _gaq.push(['_setAccount', '<%# tracking_id %>']);
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -29,4 +29,4 @@ unless tracking_id.blank?
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<% end %>
+<%# end %>
