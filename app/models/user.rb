@@ -114,19 +114,19 @@ class User < ActiveRecord::Base
   def groups!
     list = self.class.groups(login)
 
-    if Hydra::LDAP.connection.get_operation_result.code == 0
-      list.sort!
-      logger.debug "groups = #{list}"
-      attrs = {}
-      attrs[:ldap_na] = false
-      attrs[:group_list] = list.join(";?;")
-      attrs[:groups_last_update] = Time.now
-      update_attributes(attrs)
-      # TODO: Should we retry here if the code is 51-53???
-    else
-      logger.warn "Error getting groups for #{login} reason: #{Hydra::LDAP.connection.get_operation_result.message}"
-      return []
-    end
+    #if Hydra::LDAP.connection.get_operation_result.code == 0
+    #  list.sort!
+    #  logger.debug "groups = #{list}"
+    #  attrs = {}
+    #  attrs[:ldap_na] = false
+    #  attrs[:group_list] = list.join(";?;")
+    #  attrs[:groups_last_update] = Time.now
+    #  update_attributes(attrs)
+    #  # TODO: Should we retry here if the code is 51-53???
+    #else
+    #  logger.warn "Error getting groups for #{login} reason: #{Hydra::LDAP.connection.get_operation_result.message}"
+    #  return []
+    #end
     return list
   end
 
