@@ -60,7 +60,7 @@ module ScholarSphere
 
     # email to send on contact form - probably need one for the production
     # environment
-    config.contact_email = 'DLT-GAMMA-PROJECT@localhost'
+    config.contact_email = 'nobody@localhost'
 
     config.fits_to_desc_mapping = {
       :file_title => :title,

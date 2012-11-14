@@ -49,15 +49,11 @@ limitations under the License.
     <div id="page-positioner">
       <div id="masthead">
         <a id="shield" href="http://localhost/"><img src="/assets/site_images/vecnet.png" width="100" height="108" alt="VecNet" /></a>
-        <!--<a id="logo" href="/"><img src="/assets/site_images/logo_psuss_logotype.png" width="132" height="37" alt="Penn State ScholarSphere" /></a>-->
         <div class="navbar">
           <div class="nav-inner">
             <div class="container">
               <ul class="nav pull-right">
                 <li <%= 'class=active' if params[:controller] == "catalog" and action_name == "index" %>><a href="/" class="top_nav">Home</a></li>
-                <li <%= 'class=active' if action_name == "about" %>><a href="/about/" class="top_nav">About</a></li>
-                <li <%= 'class=active' if action_name == "help" %>><a href="/help/" class="top_nav">Help</a></li>
-                <li <%= 'class=active' if params[:controller] == "contact_form" %>><a href="<%= contact_form_index_path %>" class="top_nav">Contact</a></li>
                 <li>
                   <div class="btn-group">
                     <% if current_user %>
@@ -94,24 +90,13 @@ limitations under the License.
 </div><!-- /#wrapper -->
 <div id="footer-wrapper" class="row-fluid">
   <div id="footer">
-    <div class="footer-logo">
-      <a href="/"><img src="/assets/site_images/logo_psuss_footer.png" alt="Penn State ScholarSphere" /></a>
-      <p>A service of the University Libraries and Information Technology Services.</p>
-    </div>
     <div class="footer-text">
-      <p><strong>Copyright &copy; 2012 The Pennsylvania State University</strong></p>
-      <ul>
-        <li><a href="http://psu.edu">Penn State</a></li>
-        <li><a href="http://libraries.psu.edu">University Libraries</a></li>
-        <li><a href="http://its.psu.edu">Information Technology Services</a></li>
-        <li><a href="http://accessibility.psu.edu/">Accessibility</a></li>
-      </ul>
+      <p>VECNet Digital Library. Built on <a href="http://scholarsphere.psu.edu/">Penn State ScholarSphere</a>.</p>
     </div>
     <div class="clearfix"></div>
   </div><!-- /footer -->
 </div><!-- /footer-wrapper -->
 
-      
 </body>
 
 </html>
