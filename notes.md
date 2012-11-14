@@ -42,6 +42,15 @@ To start resque monitoring page
 
     resque-web -r libvirt1.library.nd.edu -N scholarsphere:development
 
+# Setting up the server
+
+1. Install ruby 1.9.3p286
+1. check out source code
+1. Install imagemagick, imagemagick-devel
+1. Install FITS service
+1. `bundle install`
+
+
 # Attribution
 
 From Mike Giarlo:
