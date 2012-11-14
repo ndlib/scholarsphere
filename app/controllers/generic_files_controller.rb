@@ -77,9 +77,6 @@ class GenericFilesController < ApplicationController
       elsif ((params[:files][0].respond_to?(:size)) && (params[:files][0].size == 0))
          retval = render :json => [{ :name => params[:files][0].original_filename, :error => "Error! Zero Length File!"}].to_json
 
-      elsif (params[:terms_of_service] != '1')
-         retval = render :json => [{ :name => params[:files][0].original_filename, :error => "You must accept the terms of service!"}].to_json
-
       # process file
       else
         create_and_save_generic_file
@@ -216,7 +213,6 @@ class GenericFilesController < ApplicationController
     return nil unless virus_check(file) == 0  
 
     @generic_file = GenericFile.new
-    @generic_file.terms_of_service = params[:terms_of_service]
     # if we want to be able to save zero length files then we can use this to make the file 1 byte instead of zero length and fedora will take it
     #if (file.tempfile.size == 0)
     #   logger.warn "Encountered an empty file...  Creating a new temp file with on space."

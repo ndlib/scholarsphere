@@ -61,17 +61,6 @@ class GenericFile < ActiveFedora::Base
 
   NO_RUNS = 999
 
-  #make sure the terms of service is present and set to 1 before saving
-  # note GenericFile.create will no longer save a GenericFile as the terms_of_service will not be set
-  terms_of_service = nil
-  validates_acceptance_of :terms_of_service, :allow_nil => false
-
-  # set the terms of service on create so an empty generic file can be created
-  #before_validation(:on => :create) do
-  #  logger.info "!!!! Before create !!!!"
-  #  self.terms_of_service = '1'
-  #end
-
   def self.get_label(key)
      label = @@FIELD_LABEL_MAP[key]
      puts "label = #{label}"
@@ -137,7 +126,6 @@ class GenericFile < ActiveFedora::Base
     self.characterization.content = self.content.extract_metadata
     self.append_metadata
     self.filename = self.label
-    self.terms_of_service = '1'
     save unless self.new_object?
   end
 
@@ -169,11 +157,6 @@ class GenericFile < ActiveFedora::Base
   def self.find(args, opts={})
     gf = super
     # use the field type to see if the return will be one item or multiple
-    if args.is_a? String
-      gf.terms_of_service = '1'
-    else
-      gf.each {|f| f.terms_of_service = '1'}
-    end
     return gf
   end
 
@@ -189,7 +172,6 @@ class GenericFile < ActiveFedora::Base
         thumb = first.scale(338, 493)
         self.thumbnail.content = thumb.to_blob { self.format = "PNG" }
         #logger.debug "Has the content changed before saving? #{self.content.changed?}"
-        self.terms_of_service = '1'
         stat = self.save
         break
       rescue => e
@@ -222,7 +204,6 @@ class GenericFile < ActiveFedora::Base
       end
     end
     self.thumbnail.content = thumb.to_blob
-    self.terms_of_service = '1'
     #logger.debug "Has the content before saving? #{self.content.changed?}"
     self.save
   end

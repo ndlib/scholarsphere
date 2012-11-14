@@ -263,7 +263,6 @@ namespace :scholarsphere do
       User.create(login: 'archivist1', display_name: 'Captain Archivist')
       # Then, set this user as the depositor of test4 to appease this damn failing cuke
       gf = GenericFile.find('scholarsphere:test4')
-      gf.terms_of_service = '1'
       gf.apply_depositor_metadata('archivist1')
       gf.save
     end
