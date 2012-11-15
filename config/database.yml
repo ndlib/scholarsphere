@@ -28,6 +28,12 @@ production:
   pool: 5
   timeout: 5000
 
+dlvecnet:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
 jcudeploy:
   adapter: sqlite3
   database: db/jcudeploy.sqlite3
