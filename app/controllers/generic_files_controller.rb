@@ -26,9 +26,9 @@ class GenericFilesController < ApplicationController
   rescue_from AbstractController::ActionNotFound, :with => :render_404
 
   # actions: audit, index, create, new, edit, show, update, destroy, permissions, citation
-  #before_filter :authenticate_user!, :except => [:show, :citation]
-  #before_filter :has_access?, :except => [:show]
-  #before_filter :enforce_access_controls
+  before_filter :authenticate_user!, :except => [:show, :citation]
+  before_filter :has_access?, :except => [:show]
+  before_filter :enforce_access_controls
   before_filter :find_by_id, :except => [:index, :create, :new]
   prepend_before_filter :normalize_identifier, :except => [:index, :create, :new]
 

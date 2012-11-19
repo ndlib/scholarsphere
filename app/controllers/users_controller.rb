@@ -14,9 +14,9 @@
 
 class UsersController < ApplicationController
   prepend_before_filter :find_user, :except => [:index, :search, :notifications_number]
-  #before_filter :authenticate_user!, only: [:edit, :update, :follow, :unfollow]
-  #before_filter :user_is_current_user, only: [:edit, :update]
-  #before_filter :user_not_current_user, only: [:follow, :unfollow]
+  before_filter :authenticate_user!, only: [:edit, :update, :follow, :unfollow]
+  before_filter :user_is_current_user, only: [:edit, :update]
+  before_filter :user_not_current_user, only: [:follow, :unfollow]
 
   def index
     sort_val = get_sort

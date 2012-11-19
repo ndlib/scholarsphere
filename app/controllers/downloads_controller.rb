@@ -65,7 +65,7 @@ class DownloadsController < ApplicationController
   
   # Custom enforcement for show requests -- redirects to catalog_path if not reader.
   def deny_access_if_not_reader
-    #authenticate_user!
+    authenticate_user!
     load_permissions_from_solr
     unless can? :read, @permissions_solr_document
       redirect_to catalog_path
