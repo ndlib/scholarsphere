@@ -61,6 +61,8 @@ module ScholarSphere
     # email to send on contact form - probably need one for the production
     # environment
     config.contact_email = 'nobody@localhost'
+    config.scholarsphere_version = "v1.2.0-vecnet"
+    config.scholarsphere_release_date = "Nov. 7, 2012"
 
     config.fits_to_desc_mapping = {
       :file_title => :title,

@@ -22,6 +22,12 @@ describe UsersController do
     User.any_instance.stubs(:groups).returns([])
     controller.stubs(:clear_session_user) ## Don't clear out the authenticated session
   end
+  after(:all) do
+    @user = FactoryGirl.find(:user) rescue
+    @user.delete if @user
+    @another_user = FactoryGirl.find(:archivist) rescue
+    @another_user.delete if @user
+  end
   describe "#show" do
     it "show the user profile if user exists" do
       get :show, uid: @user.login
@@ -45,14 +51,14 @@ describe UsersController do
     it "redirects to show profile when user attempts to edit another profile" do
       get :edit, uid: @another_user.login
       response.should redirect_to(profile_path(@another_user.login))
-      flash[:alert].should include("You cannot edit archivist1's profile")
+      flash[:alert].should include("Permission denied: cannot access this page.")
     end
   end
   describe "#update" do
     it "should not allow other users to update" do
       post :update, uid: @another_user.login, user: { avatar: nil }
       response.should redirect_to(profile_path(@another_user.login))
-      flash[:alert].should include("You cannot edit archivist1's profile")
+      flash[:alert].should include("Permission denied: cannot access this page.")
     end
     it "should set an avatar and redirect to profile" do
       @user.avatar.file?.should be_false
@@ -90,6 +96,18 @@ describe UsersController do
       post :update, uid: @user.login, update_directory: true
       response.should redirect_to(profile_path(@user.login))
       flash[:notice].should include("Your profile has been updated")
+    end
+    it "should set an social handles" do
+      @user.twitter_handle.blank?.should be_true
+      @user.facebook_handle.blank?.should be_true
+      @user.googleplus_handle.blank?.should be_true
+      post :update, uid: @user.login, user: { twitter_handle: 'twit', facebook_handle: 'face', googleplus_handle: 'goo' }
+      response.should redirect_to(profile_path(@user.login))
+      flash[:notice].should include("Your profile has been updated")
+      u = User.find_by_login(@user.login)
+      u.twitter_handle.should == 'twit'
+      u.facebook_handle.should == 'face'
+      u.googleplus_handle.should == 'goo'
     end
   end
   describe "#follow" do
@@ -137,6 +155,32 @@ describe UsersController do
       post :unfollow, uid: @user.login
       response.should redirect_to(profile_path(@user.login))
       flash[:alert].should include("You cannot follow or unfollow yourself")
+    end
+  end
+  describe "#toggle_trophy" do
+     before do
+       GenericFile.any_instance.stubs(:terms_of_service).returns('1')
+       @file = GenericFile.new()
+       @file.apply_depositor_metadata(@user.login)
+       @file.save
+     end
+     after do
+       @file.delete
+     end
+     it "should trophy a file" do
+      post :toggle_trophy, {uid: @user.login, file_id: @file.pid["scholarsphere:".length..-1]}
+      JSON.parse(response.body)['trophy']['user_id'].should == @user.id
+      JSON.parse(response.body)['trophy']['generic_file_id'].should == @file.pid["scholarsphere:".length..-1]
+    end
+     it "should not trophy a file for a different user" do
+      post :toggle_trophy, {uid: @another_user.login, file_id: @file.pid}
+      response.should_not be_success
+    end
+     it "should not trophy a file with no edit privs" do
+      sign_out @user
+      sign_in @another_user
+      post :toggle_trophy, {uid: @another_user.login, file_id: @file.pid}
+      response.should_not be_success
     end
   end
 end

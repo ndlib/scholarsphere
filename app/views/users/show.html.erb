@@ -30,6 +30,7 @@ limitations under the License.
       <% else %>
         <a class="btn btn-primary" href="<%= follow_user_path(@user.to_s) %>"><i class="icon-eye-open"></i> Follow</a>
       <% end %>
+      <a class="btn btn-primary" href="<%= profiles_path %>"><i class="icon-globe"></i> View Users</a>
     </span>
   </h1>
     <dl>
@@ -37,6 +38,10 @@ limitations under the License.
       <dd><%= @user.created_at.to_date.to_formatted_s(:long_ordinal) %></dd>
       <dt><i class="icon-folder-open"></i> Deposited Files</dt>
       <dd><%= link_to_field('depositor', @user.to_s, GenericFile.find(:depositor_t => @user.to_s).count) %></dd>
+    <dt><i class="icon-trophy trophy-on" ></i> Trophy Files</dt>
+    <% @trophies.each do |t| %>
+    <dd> <%= link_to display_title(t), generic_file_path(t) %></dd>
+    <% end %>
     </dl>
 
 <hr />

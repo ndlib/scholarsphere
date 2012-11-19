@@ -13,6 +13,11 @@
 # limitations under the License.
 
 ScholarSphere::Application.routes.draw do
+  match 'single_use_link/generate_download/:id' => 'single_use_link#generate_download', :as => :generate_download_single_use_link
+  match 'single_use_link/generate_show/:id' => 'single_use_link#generate_show', :as => :generate_show_single_use_link
+  match 'single_use_link/show/:id' => 'single_use_link#show', :as => :show_single_use_link
+  match 'single_use_link/download/:id' => 'single_use_link#download', :as => :download_single_use_link
+
   # Routes for Blacklight-specific functionality such as the catalog
   Blacklight.add_routes(self)
   match 'batch_edits/clear' => 'batch_edits#clear', :as => :batch_edits_clear
@@ -58,6 +63,10 @@ ScholarSphere::Application.routes.draw do
   match 'users/:uid' => 'users#show', :as => :profile
   match 'users/:uid/edit' => 'users#edit', :as => :edit_profile
   match 'users/:uid/update' => 'users#update', :as => :update_profile, :via => :put
+  match "users/:uid/trophy" => "users#toggle_trophy", :as => :update_trophy_user, :via => :post
+
+
+
   match 'users/:uid/follow' => 'users#follow', :as => :follow_user
   match 'users/:uid/unfollow' => 'users#unfollow', :as => :unfollow_user
 
@@ -93,7 +102,7 @@ ScholarSphere::Application.routes.draw do
   end
 
   # Static page routes (workaround)
-  match ':action' => 'static#:action', :constraints => { :action => /about|help|terms|zotero|mendeley|agreement|subject_libraries/ }, :as => :static
+  match ':action' => 'static#:action', :constraints => { :action => /about|help|terms|zotero|mendeley|agreement|subject_libraries|versions/ }, :as => :static
 
   # Catch-all (for routing errors)
   match '*error' => 'errors#routing'

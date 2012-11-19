@@ -388,6 +388,26 @@ $(function() {
        $(this).find('i').toggleClass("icon-chevron-down");
     });
 
+     $('.trophy-class').click(function(){
+               var uid=$("#current_user").html();
+               $.ajax({
+               url:"/users/"+uid+"/trophy",
+               type:"post",
+               data: "file_id="+this.id,
+               success:function(data) {
+                      var oldclass = $('#'+data.trophy.generic_file_id).find('i').attr("class");
+                      if (oldclass.indexOf("trophy-on") != -1){
+                        $('#'+data.trophy.generic_file_id).find('i').attr("title", "Turn Trophy ON");
+                      } else {
+                        $('#'+data.trophy.generic_file_id).find('i').attr("title", "Turn Trophy OFF");
+                      }
+                    
+                      $('#'+data.trophy.generic_file_id).find('i').toggleClass("trophy-on");
+                      $('#'+data.trophy.generic_file_id).find('i').toggleClass("trophy-off");
+                    }
+               })
+     });
+
   /*
    * enlarge icons on hover- on dashboard
    */
@@ -578,7 +598,10 @@ function initialize_audio() {
          $(this).attr("preload","auto");
       });
     audiojs.events.ready(function() {
-          var as = audiojs.createAll();
+          var as = audiojs.createAll({
+                 imageLocation: '/assets/player-graphics.gif',
+                 swfLocation: '/assets/audiojs.swf'
+          });
     });
   };
 }

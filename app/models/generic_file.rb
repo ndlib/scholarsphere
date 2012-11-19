@@ -58,6 +58,8 @@ class GenericFile < ActiveFedora::Base
   around_save :characterize_if_changed, :retry_warming
   validate :paranoid_permissions
 
+  #TODO Uncomment when ActiveFedora bug is fixed
+  #before_delete :cleanup_trophies 
 
   NO_RUNS = 999
 
@@ -66,6 +68,11 @@ class GenericFile < ActiveFedora::Base
      puts "label = #{label}"
      label = key.gsub('_',' ').titleize if label.blank?
      return label
+  end
+
+  def delete
+     self.cleanup_trophies
+     super
   end
 
   def persistent_url
@@ -100,13 +107,24 @@ class GenericFile < ActiveFedora::Base
         # fail for good if the tries is greater than 3
         rescue_action_without_handler(error) if save_tries >=3
         sleep 0.01
-        retry
+        retry      
       rescue  ActiveResource::ResourceConflict => error
         conflict_tries += 1
         logger.warn "Retry caught Active Resource Conflict #{self.pid}: #{error.inspect}"
         rescue_action_without_handler(error) if conflict_tries >=10
         sleep 0.01
         retry
+      rescue =>error
+        if (error.to_s.downcase.include? "conflict")
+          conflict_tries += 1
+          logger.warn "Retry caught Active Resource Conflict #{self.pid}: #{error.inspect}"
+          rescue_action_without_handler(error) if conflict_tries >=10
+          sleep 0.01
+          retry
+        else
+          rescue_action_without_handler(error)
+        end          
+      
       end
   end
 
@@ -301,7 +319,7 @@ class GenericFile < ActiveFedora::Base
     terms.each do |t|
         next if t.empty?
         key = t.to_s.split("generic_file__").last
-        next if ['part_of', 'date_modified', 'date_uploaded', 'format', 'resource_type'].include?(key)
+        next if ['part_of', 'date_modified', 'date_uploaded', 'format'].include?(key)
         values[key] = self.send(key) if self.respond_to?(key)
     end        
     return values          
@@ -661,6 +679,10 @@ class GenericFile < ActiveFedora::Base
      return (!self.batch.status.empty?) && (self.batch.status.count == 1) && (self.batch.status[0] == "processing")
   end
 
+  def cleanup_trophies
+    Trophy.destroy_all(generic_file_id: self.noid)
+  end
+
   private
 
   def permission_hash
@@ -784,4 +806,5 @@ class GenericFile < ActiveFedora::Base
     temp_name = name.split(", ")
     return temp_name.last + " " + temp_name.first
   end
+
 end
