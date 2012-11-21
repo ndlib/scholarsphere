@@ -5,4 +5,4 @@
 
 LISTEN_PORTS="-l 127.0.0.1:3001"
 
-bundle exec unicorn $LISTEN_PORTS -E dlvecnet
+RAILS_ENV=dlvecnet bundle exec unicorn $LISTEN_PORTS
