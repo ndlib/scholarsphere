@@ -113,23 +113,30 @@ class User < ActiveRecord::Base
 
   # Groups that user is a member of
   def groups
-    if (groups_last_update.blank? || ((Time.now-groups_last_update) > 24*60*60 ))
-      return groups!
-    end
+    #if (groups_last_update.blank? || ((Time.now-groups_last_update) > 24*60*60 ))
+    #  return groups!
+    #end
     return self.group_list.split(";?;")
   end
 
+  def add_group(group)
+    set_groups(groups << group)
+  end
+
+  def set_groups(list)
+    list.sort!
+    logger.debug "groups = #{list}"
+    attrs = {}
+    attrs[:group_list] = list.join(";?;")
+    attrs[:groups_last_update] = Time.now
+    update_attributes(attrs)
+  end
+
   def groups!
-    list = self.class.groups(login)
+    #list = self.class.groups(login)
 
     #if Hydra::LDAP.connection.get_operation_result.code == 0
-    #  list.sort!
-    #  logger.debug "groups = #{list}"
-    #  attrs = {}
-    #  attrs[:ldap_na] = false
-    #  attrs[:group_list] = list.join(";?;")
-    #  attrs[:groups_last_update] = Time.now
-    #  update_attributes(attrs)
+    #  set_groups(list)
     #  # TODO: Should we retry here if the code is 51-53???
     #else
     #  logger.warn "Error getting groups for #{login} reason: #{Hydra::LDAP.connection.get_operation_result.message}"
