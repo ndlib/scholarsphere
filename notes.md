@@ -4,9 +4,31 @@ Actions:
  * comment out all authorization code
  * Make the first user the current user
  * search and replace for `psu.edu`. changed most to localhost.
- * Install and start jetty
+
+# To Install
+
+These instructions should be considered a _best approximation._ Please change
+or add to them when needed.
+
+ * Install ruby-1.9.3
+ 
+ * Install imagemagick
+   - yum install ImageMagick ImageMagick-devel
  * Install and start redis
+   - yum install redis
+ * check out repo
+   - git clone ...
+ * Install and start jetty
+   - git ... <submodules>
+ * `bundle install`
  * Install [FITS][] and put the path in `config/application.rb`
+
+    curl -O http://fits.googlecode.com/files/fits-0.6.1.zip
+    unzip fits-0.6.1.zip
+    chmod +x fits-0.6.1/fits.sh
+
+   Adjust `config.fits_path` in `config/application.rb` line 44 to point to the correct place
+
  * rake tasks: (don't know if this is optimal or even in the correct order)
    some tasks may even be missing
 
@@ -16,31 +38,25 @@ Actions:
    - `db:migrate`
    - `jetty:environment`
 
- * add my user to database using console
+ * add a user to the database using the rails console. Give this user admin
+   rights (so can view resque monitoring page)
 
     rails console
-    > User.create(email:'someone@localhost', login: 'sone', display_name: 'Someone')
+    > a = User.create(email:'someone@localhost', login: 'sone', display_name: 'Someone', password:'something')
+    > a.add_group("admin")
+    > a.save
 
 
  [FITS]: http://code.google.com/p/fits/
 
-To start resque workers
+ * start resque workers
 
-    rake resque:pool
+    ./start-pool
 
-(can also do:
+ * start the server
 
-    resque-pool
+    ./start-server
 
-)
-
-To start server
-
-    unicorn_rails
-
-To start resque monitoring page
-
-    resque-web -r libvirt1.library.nd.edu -N scholarsphere:development
 
 # Setting up the server
 
