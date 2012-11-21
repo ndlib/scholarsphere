@@ -37,7 +37,7 @@ on element ids -->
   <td width="17%"><%= document.fetch(:generic_file__date_uploaded_dt,'').to_time.strftime("%m/%d/%Y") unless document.fetch(:generic_file__date_uploaded_dt,'').blank? %> </td>
   <td width="5%" align="center">
     <% if !document[:read_access_group_t].blank? and document[:read_access_group_t].include?('registered') %>
-      <a href="<%= generic_file_path(noid) %>/edit/?tab=permissions" id="permission_<%= noid %>"><span class="label label-info" title="Penn State">Penn State</span></a> 
+      <a href="<%= generic_file_path(noid) %>/edit/?tab=permissions" id="permission_<%= noid %>"><span class="label label-info" title="Local Access">Local Access</span></a> 
     <% elsif !document[:read_access_group_t].blank? and document[:read_access_group_t].include?('public') %>
       <a href="<%= generic_file_path(noid) %>/edit/?tab=permissions" id="permission_<%= noid %>"><span class="label label-success" title="Open Access">Open Access</span></a>
     <% else %>
@@ -50,7 +50,7 @@ on element ids -->
     </span>&nbsp;&nbsp;&nbsp;
     <%= link_to raw('<i class="icon-pencil icon-large"></i>'), edit_generic_file_path(noid), :class=> 'itemicon itemedit', :title => 'Edit File'  %>&nbsp;&nbsp;&nbsp;
     <%= link_to raw('<i class="icon-download-alt icon-large"></i>'), download_path(noid), :class=> 'itemicon itemdownload', :title => 'Download File', :target => '_new' %>&nbsp;&nbsp;&nbsp;
-    <%= link_to raw('<i class="icon-trash icon-large"></i>'), generic_file_path(noid), :class=> 'itemicon itemtrash', :title => 'Delete File', :method => :delete, :data => { :confirm => 'Deleting a file from ScholarSphere is permanent. Click OK to delete this file from ScholarSphere, or Cancel to cancel this operation'} %>&nbsp;&nbsp;&nbsp;
+    <%= link_to raw('<i class="icon-trash icon-large"></i>'), generic_file_path(noid), :class=> 'itemicon itemtrash', :title => 'Delete File', :method => :delete, :data => { :confirm => 'Deleting a file is permanent. Click OK to delete this file, or Cancel to cancel this operation'} %>&nbsp;&nbsp;&nbsp;
 
  <% trophyclass = "trophy-off" %>
  <% trophytitle= "Turn Trophy ON" %>
