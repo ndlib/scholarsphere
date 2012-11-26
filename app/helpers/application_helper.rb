@@ -77,6 +77,10 @@ module ApplicationHelper
 
   def link_to_profile(login)
     user = User.find_by_login(login)
+    if user.nil?
+      user = User.find_by_email(login)
+      login = user.login unless user.nil?
+    end
     link_to user.name, profile_path(login)
   rescue
     link_to login, profile_path(login)
