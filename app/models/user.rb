@@ -27,8 +27,7 @@ class User < ActiveRecord::Base
                     #:controller => :sessions,
                     :model => 'devise/models/http_header_authenticatable')
 
-  devise :database_authenticatable, :registerable,
-       :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :rememberable, :validatable
 
   # set this up as a messageable object
   acts_as_messageable
