@@ -22,9 +22,9 @@ class UsersController < ApplicationController
   def index
     sort_val = get_sort
     query = params[:uq].blank? ? nil : "%"+params[:uq].downcase+"%"
-    @users = User.where("(login like lower(?) OR display_name like lower(?)) and ldap_available = true ",query,query).paginate(:page => params[:page], 
+    @users = User.where("(login like lower(?) OR display_name like lower(?))",query,query).paginate(:page => params[:page], 
                            :per_page => 10, :order => sort_val) unless query.blank?   
-    @users = User.where("ldap_available = true").paginate(:page => params[:page], :per_page => 10, :order => sort_val) if query.blank?
+    @users = User.paginate(:page => params[:page], :per_page => 10, :order => sort_val) if query.blank?
   end
 
   # Display user profile
@@ -34,10 +34,7 @@ class UsersController < ApplicationController
     else 
       @events = []
     end
-    @trophies=[]
-    @user.trophies.each do |t| 
-      @trophies << GenericFile.find("scholarsphere:#{t.generic_file_id}")
-    end
+    @trophies = @user.trophies.map { |t| t.as_generic_file }
     @followers = @user.followers
     @following = @user.all_following
   end
@@ -46,10 +43,7 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     @groups = @user.groups
-    @trophies=[]
-    @user.trophies.each do |t| 
-      @trophies << GenericFile.find("scholarsphere:#{t.generic_file_id}")
-    end
+    @trophies = @user.trophies.map { |t| t.as_generic_file }
   end
 
   # Process changes from profile form
@@ -62,10 +56,11 @@ class UsersController < ApplicationController
       redirect_to edit_profile_path(@user.to_s), alert: @user.errors.full_messages
       return
     end
-    delete_trophy = params.keys.reject{|k,v|k.slice(0,'remove_trophy'.length)!='remove_trophy'}
-    delete_trophy = delete_trophy.map{|v| v.slice('remove_trophy_'.length..-1)}
+    # don't know what this is doing...
+    delete_trophy = params.keys.keep_if? { |k,v| k.starts_with?('remove_trophy') }
+    delete_trophy = delete_trophy.map { |v| v.delete('remove_trophy_') }
     delete_trophy.each do | smash_trophy |
-      Trophy.where(user_id: current_user.id, generic_file_id: smash_trophy.slice('scholarsphere:'.length..-1)).each.map(&:delete)
+      Trophy.where(user_id: current_user.id, generic_file_id: ScholarSphere::Noid.noidify(smash_trophy)).each.map(&:delete)
     end
     begin
       Resque.enqueue(UserEditProfileEventJob, @user.login)
@@ -74,8 +69,8 @@ class UsersController < ApplicationController
     end
     redirect_to profile_path(@user.to_s), notice: "Your profile has been updated"
   end
-  def toggle_trophy    
-     unless current_user.can? :edit, permissions_solr_doc_for_id("scholarsphere:#{params[:file_id]}")
+  def toggle_trophy
+     unless current_user.can? :edit, permissions_solr_doc_for_id(ScholarSphere::Noid.namespaceize(params[:file_id]))
        return false
      end
      # TO DO  make sure current user has access to file

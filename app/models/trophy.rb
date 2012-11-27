@@ -8,5 +8,13 @@ class Trophy < ActiveRecord::Base
       errors.add(:base, "Exceeded trophy limit")
     end
   end
+
+  def pid
+    ScholarSphere::Noid.namespaceize(self.generic_file_id)
+  end
+
+  def as_generic_file
+    GenericFile.find(pid)
+  end
 end
 
