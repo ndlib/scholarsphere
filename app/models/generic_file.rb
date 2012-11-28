@@ -139,11 +139,23 @@ class GenericFile < ActiveFedora::Base
     end
   end
 
+  # convert the string by removing any record count
+  # example:
+  #   'DBase 3 data file (1738 records)' ~~> 'DBase 3 data file'
+  def filter_format_label(string)
+      capture = /(.*\S)\s+\(\d+ [Rr]ecords\)/.match(string)
+      return capture[1] if capture
+      return string
+  end
+
   ## Extract the metadata from the content datastream and record it in the characterization datastream
   def characterize
     self.characterization.content = self.content.extract_metadata
     self.append_metadata
     self.filename = self.label
+    # Post-process the characterization received from the characterization service
+    # since sometimes the characterization includes a record count in the format_label.
+    self.format_label = self.format_label.map { |item| filter_format_label(item) }
     save unless self.new_object?
   end
 
