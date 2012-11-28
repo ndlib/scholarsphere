@@ -115,6 +115,10 @@ class User < ActiveRecord::Base
     #if (groups_last_update.blank? || ((Time.now-groups_last_update) > 24*60*60 ))
     #  return groups!
     #end
+    if self.group_list.nil?
+      self.group_list = ""
+      self.save
+    end
     return self.group_list.split(";?;")
   end
 
