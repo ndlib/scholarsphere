@@ -408,25 +408,31 @@ describe GenericFile do
       @file.save
       @file.delete
     end
+    def new_generic_file_from_file(filename)
+      GenericFile.any_instance.stubs(:terms_of_service).returns('1')
+      myfile = GenericFile.new
+      myfile.add_file_datastream(File.new(Rails.root + 'spec/fixtures/scholarsphere/' + filename), :dsid=>'content')
+      myfile.label = 'label123'
+      myfile.thumbnail.size.nil?.should be_true
+      myfile.apply_depositor_metadata('mjg36')
+      myfile.save
+      GenericFile.find(myfile.pid)
+    end
+    def cleanup_generic_file(gf)
+      unless gf.inner_object.kind_of? ActiveFedora::UnsavedDigitalObject
+        begin
+          gf.delete
+        rescue ActiveFedora::ObjectNotFoundError
+          # do nothing
+        end
+      end
+    end
     describe "after job runs" do
       before(:all) do
-        GenericFile.any_instance.stubs(:terms_of_service).returns('1')
-        myfile = GenericFile.new
-        myfile.add_file_datastream(File.new(Rails.root + 'spec/fixtures/scholarsphere/scholarsphere_test4.pdf'), :dsid=>'content')
-        myfile.label = 'label123'
-        myfile.thumbnail.size.nil?.should be_true
-        myfile.apply_depositor_metadata('mjg36')
-        myfile.save
-        @myfile = GenericFile.find(myfile.pid)
+        @myfile = new_generic_file_from_file('scholarsphere_test4.pdf')
       end
       after(:all) do
-        unless @myfile.inner_object.kind_of? ActiveFedora::UnsavedDigitalObject
-          begin
-            @myfile.delete
-          rescue ActiveFedora::ObjectNotFoundError
-            # do nothing
-          end
-        end
+        cleanup_generic_file(@myfile)
       end
       it "should return expected results after a save" do
         @myfile.file_size.should == ['218882']
@@ -451,6 +457,13 @@ describe GenericFile do
         @myfile.append_metadata
         @myfile.format_label.should == ["Portable Document Format"]
         @myfile.title.should include("Microsoft Word - sample.pdf.docx")
+      end
+    end
+    describe "special data types" do
+      it "should filter out record counts on DBase 3 data files" do
+        @myfile = new_generic_file_from_file('scholarsphere_test7.dbf')
+        @myfile.characterization_terms[:format_label].should == ["DBase 3 data file"]
+        cleanup_generic_file(@myfile)
       end
     end
   end
