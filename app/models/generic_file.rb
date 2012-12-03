@@ -139,16 +139,27 @@ class GenericFile < ActiveFedora::Base
     end
   end
 
+  FORMAT_TYPES = {
+    'DBase 3 data file' => 'application/dbase'
+  }
+
   ## Extract the metadata from the content datastream and record it in the characterization datastream
   def characterize
     self.characterization.content = self.content.extract_metadata
     self.append_metadata
     self.filename = self.label
+
     # Post-process the characterization received from the characterization service
     # since sometimes it includes a record count in the format_label.
     self.format_label = self.format_label.map do |item|
       # 'DBase 3 data file (1738 records)' ==> 'DBase 3 data file'
       item.sub(/\s+\(\d+ [Rr]ecords\)/, '')
+    end
+
+    # fix up mime type if the format is more specific
+    self.format_label.map do |item|
+      mime = FORMAT_TYPES[item]
+      self.mime_type = mime if mime
     end
     save unless self.new_object?
   end

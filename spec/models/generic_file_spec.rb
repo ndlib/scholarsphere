@@ -463,6 +463,7 @@ describe GenericFile do
       it "should filter out record counts on DBase 3 data files" do
         @myfile = new_generic_file_from_file('scholarsphere_test7.dbf')
         @myfile.characterization_terms[:format_label].should == ["DBase 3 data file"]
+        @myfile.characterization_terms[:mime_type].should == "application/dbase"
         cleanup_generic_file(@myfile)
       end
     end
