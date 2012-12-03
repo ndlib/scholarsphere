@@ -13,6 +13,7 @@
 # limitations under the License.
 
 class GenericFile < ActiveFedora::Base
+  require 'format_to_mime.rb'
   include ActiveModel::Validations::HelperMethods
   include ActiveFedora::Validations
   include Hydra::ModelMixins::CommonMetadata
@@ -139,10 +140,6 @@ class GenericFile < ActiveFedora::Base
     end
   end
 
-  FORMAT_TYPES = {
-    'DBase 3 data file' => 'application/dbase'
-  }
-
   ## Extract the metadata from the content datastream and record it in the characterization datastream
   def characterize
     self.characterization.content = self.content.extract_metadata
@@ -158,7 +155,7 @@ class GenericFile < ActiveFedora::Base
 
     # fix up mime type if the format is more specific
     self.format_label.map do |item|
-      mime = FORMAT_TYPES[item]
+      mime = FORMAT_TO_MIME_TABLE[item]
       self.mime_type = mime if mime
     end
     save unless self.new_object?
