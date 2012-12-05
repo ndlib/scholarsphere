@@ -1,25 +1,22 @@
 
-class MeshDataParser < File
+class MeshDataParser
 
-  attr_accessor :f
+  attr_accessor :file
 
   def initialize(file)
-    self.f = file
+    self.file = file
   end
 
   def each_mesh_record
     current_data = {}
     in_record = false
-    self.f.each_line do |line|
+    self.file.each_line do |line|
       case line
       when /\A\*NEWRECORD/
         yield(current_data) if in_record
         in_record = true
         current_data = {}
       when /\A(?<label>\w+) = (?<value>.*)/
-        # fields = line.split('=',2)
-        # label = fields.first.strip
-        # value = fields.last.strip
         current_data[Regexp.last_match(:label)] ||= []
         current_data[Regexp.last_match(:label)] << Regexp.last_match(:value)
       when /\A\n/
