@@ -23,8 +23,7 @@ A = 45
 B = a = b = c = d
 B = more than one
 EOS
-    f = StringIO.new(data)
-    mesh = MeshDataParser.new(f)
+    mesh = MeshDataParser.new(StringIO.new(data))
     records = mesh.all_records
     records.length.should == 1
     records[0].should == {'A'=>['45'],'B'=>['a = b = c = d','more than one']}
@@ -40,8 +39,7 @@ B = a = b = c = d
 A = another field
 
 EOS
-    f = StringIO.new(data)
-    mesh = MeshDataParser.new(f)
+    mesh = MeshDataParser.new(StringIO.new(data))
     records = mesh.all_records
     records.length.should == 2
     records[0].should == {'A'=>['45'],'B'=>['a = b = c = d']}
@@ -56,8 +54,7 @@ B=no space
  space at beginning of line and no =
 *NEWRECORD
 EOS
-    f = StringIO.new(data)
-    mesh = MeshDataParser.new(f)
+    mesh = MeshDataParser.new(StringIO.new(data))
     records = mesh.all_records
     records.length.should == 2
     records[0].should == {'A'=>['45']}
