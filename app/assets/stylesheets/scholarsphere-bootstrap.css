@@ -152,6 +152,10 @@ a.advanced_search:hover {
 .footer-text {
     margin:1em 0;
 }
+.footer-text-right {
+    float: right;
+    margin:1em 0;
+}
 .footer-text ul {
 	list-style: none;
 	font-size: 11px;

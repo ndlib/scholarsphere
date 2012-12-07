@@ -49,12 +49,15 @@ limitations under the License.
     <div id="page-positioner">
       <div id="masthead">
         <a id="shield" href="/"><img src="/assets/site_images/vecnet.png" width="100" height="108" alt="VecNet" /></a>
-      <h1 id="title">VECNet Digital Library Metadata Catalog</h1>
+        <h1 id="title">VECNet Digital Library<br/> Metadata Catalog</h1>
         <div class="navbar">
           <div class="nav-inner">
             <div class="container">
               <ul class="nav pull-right">
-                <li <%= 'class=active' if params[:controller] == "catalog" and action_name == "index" %>><a href="/" class="top_nav">Home</a></li>
+                <li <%= 'class=active' if params[:controller] == "catalog" and action_name == "index" %>>
+                    <%= link_to "Home", root_path, class: "top_nav" %></li>
+                <li <%= 'class=active' if params[:controller] == "static" and action_name == "help" %>>
+                    <%= link_to "Help", "/help", class: "top_nav" %></li>
                 <li>
                   <div class="btn-group">
                     <% if current_user %>
@@ -91,8 +94,12 @@ limitations under the License.
 </div><!-- /#wrapper -->
 <div id="footer-wrapper" class="row-fluid">
   <div id="footer">
+    <div class="footer-text-right">
+      <a href="/contact">Contact Us</a></p>
+    </div>
     <div class="footer-text">
       <p>VECNet Digital Library. Built on <a href="http://scholarsphere.psu.edu/">Penn State ScholarSphere</a>.</p>
+      <p>Part of the <a href="http://www.vecnet.org/">Vector Ecology and Control Network (VECNet)</a> project.</p>
     </div>
     <div class="clearfix"></div>
   </div><!-- /footer -->

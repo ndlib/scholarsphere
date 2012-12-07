@@ -91,8 +91,8 @@ ScholarSphere::Application.routes.draw do
   match 'batches/:id/' => 'batch#update', :as => :batch_generic_files
 
   # Contact form routes
-  match 'contact' => 'contact_form#create', :via => :post, :as => :contact_form_index
-  match 'contact' => 'contact_form#new', :via => :get, :as => :contact_form_index
+  #match 'contact' => 'contact_form#create', :via => :post, :as => :contact_form_index
+  #match 'contact' => 'contact_form#new', :via => :get, :as => :contact_form_index
 
   # Resque monitoring routes
   namespace :admin do
@@ -102,7 +102,7 @@ ScholarSphere::Application.routes.draw do
   end
 
   # Static page routes (workaround)
-  match ':action' => 'static#:action', :constraints => { :action => /about|help|terms|zotero|mendeley|agreement|subject_libraries|versions/ }, :as => :static
+  match ':action' => 'static#:action', :constraints => { :action => /about|contact|help|terms|zotero|mendeley|agreement|subject_libraries|versions/ }, :as => :static
 
   # Catch-all (for routing errors)
   match '*error' => 'errors#routing'
