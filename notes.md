@@ -42,7 +42,7 @@ or add to them when needed.
    rights (so can view resque monitoring page)
 
     rails console
-    > a = User.create(email:'someone@localhost', login: 'sone', display_name: 'Someone', password:'something')
+    > a = User.create(email:'SOMEONE@localhost', login: 'SOMEONE', display_name: 'Someone', password:'something')
     > a.add_group("admin")
     > a.save
 
