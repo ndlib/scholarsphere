@@ -69,6 +69,10 @@ li.expandable_new {
 	width: 940px;
 	margin: 0 auto;
 }
+#title {
+  padding-top: 20px;
+  float:left;
+}
 #content-wrapper {
 	padding: 0 19px 0 21px;
 	background: url(/assets/site_images/bg_content2.png) 0 0 no-repeat;
