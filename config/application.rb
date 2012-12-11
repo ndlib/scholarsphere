@@ -148,7 +148,7 @@ module ScholarSphere
       "generic_file_resource_type" => "Pre-defined categories to describe the type of file content being uploaded, such as \"article\" or \"dataset.\"  More than one type may be selected.",
       "generic_file_title" => "A name for the file to aid in identifying it. Defaults to the file name, though a more descriptive title is encouraged. <em>This is a required field</em>.", 
       "generic_file_tag" => "Words or phrases you select to describe what the file is about. These are used to search for content. <em>This is a required field</em>.",
-      "generic_file_subject" => "Headings or index terms describing what the file is about; these <em>do</em> need to conform to an existing vocabulary. Currently Library of Congress Subject Headings are supported.",
+      "generic_file_subject" => "Headings or index terms describing what the file is about; these <em>do</em> need to conform to an existing vocabulary. Currently MeSH Subject Headings are supported.",
       "generic_file_creator" => "The person or group responsible for the file being uploaded. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. \"Smith, John.\" <em>This is a required field</em>.",
       "generic_file_related_url" => "A link to a website or other specific content (audio, video, PDF document) related to the file. An example is the URL of a research project from which the file was derived.", 
       "generic_file_based_near" => "A place name related to the file, such as its site of publication, or the city, state, or country the file's contents are about. Calls upon the GeoNames web service (<a href=\"http://www.geonames.org\">http://www.geonames.org</a>).",
