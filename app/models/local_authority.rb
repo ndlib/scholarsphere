@@ -67,7 +67,7 @@ class LocalAuthority < ActiveRecord::Base
         mesh.each_mesh_record do |record|
           record['MH'].each do |label|
             entries << SubjectLocalAuthorityEntry.new(:label => label,
-                                                      :lowerLabel => label.downcase,
+                                                      :lower_label => label.downcase,
                                                       :uri => record['UI'].first)
           end
         end
@@ -92,7 +92,7 @@ class LocalAuthority < ActiveRecord::Base
     # move lc_subject into it's own table since being part of the usual structure caused it to be too slow.  
     # When/if we move to having multiple dictionaries for subject we will need to also do a check for the appropriate dictionary. 
     if (term == 'subject' && model == 'generic_files') # and local_authoritiy = lc_subject 
-        sql = SubjectLocalAuthorityEntry.where("lowerLabel like ?", "#{lowQuery}%").select("label, uri").limit(25).to_sql
+        sql = SubjectLocalAuthorityEntry.where("lower_label like ?", "#{lowQuery}%").select("label, uri").limit(25).to_sql
         SubjectLocalAuthorityEntry.find_by_sql(sql).each do |hit|
           hits << {:uri => hit.uri, :label => hit.label}
         end
