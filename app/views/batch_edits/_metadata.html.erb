@@ -88,12 +88,12 @@
       </div>
 
       <div class="control-group">
-        <%= f.label :based_near, 'Location', :class=>"control-label" %> 
+        <%= f.label :based_near, 'Location Name', :class=>"control-label" %> 
         <div class="controls" id="additional_based_near_clone">
         <%= f.text_field :based_near, :name=>"generic_file[based_near][]", :value=>""  %> 
-        <button class="adder btn" name="additional_based_near" id="additional_based_near_submit">+<span class="accessible-hidden">add another Location</span></button>
+        <button class="adder btn" name="additional_based_near" id="additional_based_near_submit">+<span class="accessible-hidden">add another Location Name</span></button>
         &nbsp;
-          <a href="#" id="generic_file_based_near_help" rel="popover" data-content="<%= ScholarSphere::Application.config.metadata_help["generic_file_based_near"] %>" data-original-title="Location"><i class="icon-question-sign icon-large"></i></a>
+          <a href="#" id="generic_file_based_near_help" rel="popover" data-content="<%= ScholarSphere::Application.config.metadata_help["generic_file_based_near"] %>" data-original-title="Location Name"><i class="icon-question-sign icon-large"></i></a>
         </div>
         <div id="additional_based_near_elements"></div>
       </div>

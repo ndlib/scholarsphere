@@ -21,7 +21,7 @@ class GenericFile < ActiveFedora::Base
   include ScholarSphere::ModelMethods
   include ScholarSphere::Noid  
                                               
-  @@FIELD_LABEL_MAP = {"based_near"=>"Location", 'description'=>"Abstract or Summary", 'tag'=>"Keyword", 'date_created'=>"Date Created", 'related_url'=>"Related URL"}
+  @@FIELD_LABEL_MAP = {"based_near"=>"Location Name", 'description'=>"Abstract or Summary", 'tag'=>"Keyword", 'date_created'=>"Date Created", 'related_url'=>"Related URL"}
 
   has_metadata :name => "characterization", :type => FitsDatastream
   has_metadata :name => "descMetadata", :type => GenericFileRdfDatastream

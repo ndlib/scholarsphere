@@ -115,7 +115,7 @@ class CatalogController < ApplicationController
     config.add_facet_field "generic_file__tag_facet", :label => "Keyword", :limit => 5
     config.add_facet_field "generic_file__subject_facet", :label => "Subject", :limit => 5
     config.add_facet_field "generic_file__language_facet", :label => "Language", :limit => 5
-    config.add_facet_field "generic_file__based_near_facet", :label => "Location", :limit => 5
+    config.add_facet_field "generic_file__based_near_facet", :label => "Location Name", :limit => 5
     config.add_facet_field "generic_file__publisher_facet", :label => "Publisher", :limit => 5
     config.add_facet_field "file_format_facet", :label => "File Format", :limit => 5
 
@@ -133,7 +133,7 @@ class CatalogController < ApplicationController
     config.add_index_field "generic_file__creator_display", :label => "Creator"
     config.add_index_field "generic_file__contributor_display", :label => "Contributor"
     config.add_index_field "generic_file__publisher_display", :label => "Publisher"
-    config.add_index_field "generic_file__based_near_display", :label => "Location"
+    config.add_index_field "generic_file__based_near_display", :label => "Location Name"
     config.add_index_field "generic_file__language_display", :label => "Language"
     config.add_index_field "generic_file__date_uploaded_display", :label => "Date Uploaded"
     config.add_index_field "generic_file__date_modified_display", :label => "Date Modified"
@@ -152,7 +152,7 @@ class CatalogController < ApplicationController
     config.add_show_field "generic_file__creator_display", :label => "Creator"
     config.add_show_field "generic_file__contributor_display", :label => "Contributor"
     config.add_show_field "generic_file__publisher_display", :label => "Publisher"
-    config.add_show_field "generic_file__based_near_display", :label => "Location"
+    config.add_show_field "generic_file__based_near_display", :label => "Location Name"
     config.add_show_field "generic_file__language_display", :label => "Language"
     config.add_show_field "generic_file__date_uploaded_display", :label => "Date Uploaded"
     config.add_show_field "generic_file__date_modified_display", :label => "Date Modified"
@@ -303,7 +303,7 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('based_near') do |field|
-      field.label = "Location"
+      field.label = "Location Name"
       field.solr_parameters = {
         :"spellcheck.dictionary" => "based_near"
       }
