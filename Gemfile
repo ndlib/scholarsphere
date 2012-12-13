@@ -43,6 +43,7 @@ gem 'mailboxer', '0.8.0'
 #gem 'clamav', '0.4.1'
 gem 'rainbow', '1.1.4'
 gem 'will_paginate', '3.0.3'
+gem 'activerecord-import'
 
 group :assets do
   gem 'sass-rails', '3.2.5'
@@ -60,7 +61,6 @@ group :development, :test do
   gem 'sqlite3'
   gem 'unicorn-rails'
   gem "debugger"
-  gem 'activerecord-import'
   gem "rails_indexes", :git => "git://github.com/warpc/rails_indexes.git", :ref => '4a550270'
   gem 'selenium-webdriver'
   gem 'headless'
