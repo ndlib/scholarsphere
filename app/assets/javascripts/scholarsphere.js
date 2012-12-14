@@ -65,6 +65,7 @@ $(function() {
         dataType: "jsonp",
         data: {
           featureClass: "P",
+          featureClass: "A",
           style: "full",
           maxRows: 12,
           name_startsWith: request.term
