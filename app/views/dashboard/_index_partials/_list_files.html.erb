@@ -25,8 +25,6 @@ on element ids -->
   <td width="1%">
   <% if gf.processing? %>
      <i class="icon-magic icon-large <%= 'ss-'+gf.batch.noid%>"/>
-  <% elsif gf.depositor  != @user.login %>
-     <i class="icon-gift icon-large"/>
   <% end %>
   </td>
   <td width="37%">
@@ -52,14 +50,6 @@ on element ids -->
     <%= link_to raw('<i class="icon-download-alt icon-large"></i>'), download_path(noid), :class=> 'itemicon itemdownload', :title => 'Download File', :target => '_new' %>&nbsp;&nbsp;&nbsp;
     <%= link_to raw('<i class="icon-trash icon-large"></i>'), generic_file_path(noid), :class=> 'itemicon itemtrash', :title => 'Delete File', :method => :delete, :data => { :confirm => 'Deleting a file is permanent. Click OK to delete this file, or Cancel to cancel this operation'} %>&nbsp;&nbsp;&nbsp;
 
- <% trophyclass = "trophy-off" %>
- <% trophytitle= "Turn Trophy ON" %>
- <% if @user.trophies.map(&:generic_file_id).include? noid %>
-     <% trophyclass = "trophy-on" %>
-     <% trophytitle= "Turn Trophy OFF" %>
-<% end %>
-
- <%= link_to raw("<i class='#{trophyclass} icon-trophy icon-large'></i>"),"", :class=> 'trophy-class', :title => trophytitle, :id => noid,  :remote=>true %>&nbsp;&nbsp;&nbsp;
   </td>
 </tr>
 <tr class="hide" id="detail_<%= noid.gsub(":", "_") %>"> <!--  document detail"> -->
