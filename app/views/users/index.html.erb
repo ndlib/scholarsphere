@@ -36,7 +36,7 @@ limitations under the License.
                    <td ><a href="<%= profile_path(user.login) %>"  ><%= user.name %><a></td> 
                    <td><a href="<%= profile_path(user.login) %>"  ><%= user.login %><a></td>
                    <td><%= user.department %> </td> 
-                   <td><%= GenericFile.find(:depositor_t => user.to_s).count %> </td> 
+                   <td><%= GenericFile.find(:depositor_t => user.email_address).count %> </td> 
                 </tr> 
  
             <% end %> 
