@@ -83,6 +83,11 @@ class User < ActiveRecord::Base
     return trophies
   end
 
+  def document_count
+    # XXX: Should count interface parallel the find interface?
+    # GenericFile.find(:depositor_t => self.email).count
+    GenericFile.count(conditions: "depositor_t:#{self.email}")
+  end
 
   def ldap_exist?
     if (ldap_last_update.blank? || ((Time.now-ldap_last_update) > 24*60*60 ))
