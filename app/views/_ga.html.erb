@@ -16,8 +16,8 @@ limitations under the License.
 
 <%#
 tracking_id = ScholarSphere::Application.config.ga_host_map[request.host]
-unless tracking_id.blank?
 %>
+<% if false %>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', '<%# tracking_id %>']);
@@ -29,4 +29,4 @@ unless tracking_id.blank?
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<%# end %>
+<% end %>
