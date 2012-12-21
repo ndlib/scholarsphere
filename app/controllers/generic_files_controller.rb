@@ -158,7 +158,9 @@ class GenericFilesController < ApplicationController
         logger.error "Redis is down!"
       end
     end
-    @generic_file.update_attributes(params[:generic_file].reject { |k,v| %w{ Filedata Filename revision part_of date_modified date_uploaded format }.include? k})
+    if params[:generic_file]
+      @generic_file.update_attributes(params[:generic_file].reject { |k,v| %w{ Filedata Filename revision part_of date_modified date_uploaded format }.include? k})
+    end
     @generic_file.set_visibility(params)
     @generic_file.date_modified = Time.now.ctime
     @generic_file.save
