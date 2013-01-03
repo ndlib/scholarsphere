@@ -15,6 +15,8 @@
 FactoryGirl.define do
   factory :user, :class => User do |u|
     login 'jilluser'
+    email 'juser@example.edu'
+    password 'password'
   end
 
   factory :archivist, :class => User do |u|

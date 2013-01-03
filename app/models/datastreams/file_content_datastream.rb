@@ -16,6 +16,7 @@ require 'open3'
 class FileContentDatastream < ActiveFedora::Datastream
   include Open3
 
+  # TODO: pass in original file name if possible...
   def extract_metadata
     return if content.nil?
     f = Tempfile.new("#{pid}-#{dsVersionID}")
