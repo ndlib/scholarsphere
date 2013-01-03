@@ -24,11 +24,11 @@ on element ids -->
   <td width="6%"><%= batch_edit_select(document) %>&nbsp;</td> 
   <td width="1%">
   <% if gf.processing? %>
-     <i class="icon-magic icon-large <%= 'ss-'+gf.batch.noid%>"/>
+     <i class="icon-wrench <%= 'ss-'+gf.batch.noid%>"/>
   <% end %>
   </td>
   <td width="37%">
-    <a href="" title="Click for more details"><i id="expand_<%= noid.gsub(":", "_") %>" class="icon-plus icon-large fleft"></i></a>&nbsp;
+    <a href="" title="Click for more details"><i id="expand_<%= noid.gsub(":", "_") %>" class="icon-plus"></i></a>&nbsp;
     <%= render :partial => 'dashboard/_index_partials/thumbnail_display', :locals => {:document=>document} %>
     <span class=center><%= link_to render_document_show_field_value(:document=>document, :field=>document.title_or_label), generic_file_path(noid), :id => "src_copy_link#{noid}" %> <br /></span>
   </td>
@@ -44,11 +44,11 @@ on element ids -->
   </td>
   <td width="23%" class="center">
     <span style="position: relative; display: inline-block">
-     <%= link_to raw('<!--i class="icon-unlock under"></i--><i class="icon-link icon-large over"></i>'), '#', :class => 'copypaste itemicon itemcode', :title => 'Single Use Link to File', :id => "copy_link_#{noid}" %>
+     <%= link_to raw('<i class="icon-link"></i>'), '#', :class => 'copypaste itemicon itemcode', :title => 'Single Use Link to File', :id => "copy_link_#{noid}" %>
     </span>&nbsp;&nbsp;&nbsp;
-    <%= link_to raw('<i class="icon-pencil icon-large"></i>'), edit_generic_file_path(noid), :class=> 'itemicon itemedit', :title => 'Edit File'  %>&nbsp;&nbsp;&nbsp;
-    <%= link_to raw('<i class="icon-download-alt icon-large"></i>'), download_path(noid), :class=> 'itemicon itemdownload', :title => 'Download File', :target => '_new' %>&nbsp;&nbsp;&nbsp;
-    <%= link_to raw('<i class="icon-trash icon-large"></i>'), generic_file_path(noid), :class=> 'itemicon itemtrash', :title => 'Delete File', :method => :delete, :data => { :confirm => 'Deleting a file is permanent. Click OK to delete this file, or Cancel to cancel this operation'} %>&nbsp;&nbsp;&nbsp;
+    <%= link_to raw('<i class="icon-pencil"></i>'), edit_generic_file_path(noid), :class=> 'itemicon itemedit', :title => 'Edit File'  %>&nbsp;&nbsp;&nbsp;
+    <%= link_to raw('<i class="icon-download-alt"></i>'), download_path(noid), :class=> 'itemicon itemdownload', :title => 'Download File', :target => '_new' %>&nbsp;&nbsp;&nbsp;
+    <%= link_to raw('<i class="icon-trash"></i>'), generic_file_path(noid), :class=> 'itemicon itemtrash', :title => 'Delete File', :method => :delete, :data => { :confirm => 'Deleting a file is permanent. Click OK to delete this file, or Cancel to cancel this operation'} %>&nbsp;&nbsp;&nbsp;
 
   </td>
 </tr>
