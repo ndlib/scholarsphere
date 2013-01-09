@@ -7,7 +7,7 @@ end
 source 'http://rubygems.org'
 
 # Ruby on Rails components
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 gem 'mysql2', '0.3.11'
 gem 'pg'
 gem 'rb-readline'
@@ -58,6 +58,7 @@ group :production, :integration do
   gem 'passenger', '3.0.13'
 end
 
+gem 'activerecord-import'
 group :development, :test do
   gem 'sqlite3'
   gem 'unicorn-rails'
