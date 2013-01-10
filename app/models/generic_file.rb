@@ -217,24 +217,19 @@ class GenericFile < ActiveFedora::Base
   def create_image_thumbnail
     img = Magick::ImageList.new
     img.from_blob(content.content)
-    # horizontal img
     height = self.height.first.to_i
     width = self.width.first.to_i
-    scale = height / width
+    scale = height.to_f / width.to_f
     if width > height
-      if width > 150 and height > 105
-        thumb = img.scale(150, height/scale)
-      else
-        thumb = img.scale(width, height)
-      end
-    # vertical img
+      # horizontal img, scale < 1
+      target_width = [150, width].min
+      target_height = [200, (200*scale).to_i].min
     else
-      if width > 150 and height > 200
-        thumb = img.scale(150*scale, 200)
-      else
-        thumb = img.scale(width, height)
-      end
+      # vertical img, scale >= 1
+      target_width = [width, (150*scale).to_i].min
+      target_height = [200, height].min
     end
+    thumb = img.scale(target_width, target_height)
     self.thumbnail.content = thumb.to_blob
     #logger.debug "Has the content before saving? #{self.content.changed?}"
     self.save
