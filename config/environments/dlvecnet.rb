@@ -59,6 +59,9 @@ ScholarSphere::Application.configure do
   # adjust to where fits is installed
   config.fits_path = '/opt/fits-0.6.1/fits.sh'
 
+  config.assets.precompile += %w( generic_files.js dashboard.js video.js audio.min.js jquery.zclip.min.js bootstrap-tooltip.js bootstrap-popover.js video-js.css generic_files.css jquery-ui-1.8.1.custom.css jquery-ui-1.8.23.custom.css bootstrap.min.css batch.js reset_body.css scholarsphere-bootstrap.css bootstrap-modal.js jquery.validate.js swfobject.js)
+  config.assets.precompile += %w( *.jpg *.png *.gif *.ico )
+
   #config.logout_url = 'http://cas.library.nd.edu' # 'https://webaccess.psu.edu/cgi-bin/logout?http://localhost:3000/'
   #config.login_url = 'http://cas.library.nd.edu/cas/login?service=http://localhost:8080' # 'https://webaccess.psu.edu?cosign-localhost&http://localhost:3000/'
 end

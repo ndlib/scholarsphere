@@ -4,12 +4,12 @@
 
 rails_root = ENV["RAILS_ROOT"]
 
-worker_processes 4
+worker_processes 2
 
 working_directory rails_root
 
 listen "/tmp/unicorn.sock.0", backlog: 1024
-listen "/tmp/unicorn.sock.1", backlog: 1024
+#listen "/tmp/unicorn.sock.1", backlog: 1024
 
 timeout 30
 
@@ -27,6 +27,7 @@ GC.respond_to?(:copy_on_write_friendly=) and
 before_fork do |server, worker|
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.connection.disconnect!
+
 end
 
 after_fork do |server, worker|

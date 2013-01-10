@@ -6,4 +6,4 @@
 #LISTEN_PORTS="-l 127.0.0.1:3001"
 export RAILS_ROOT=/home/dbrower/dlvecnet
 
-RAILS_ENV=dlvecnet bundle exec unicorn -d -D -E deployment -c $RAILS_ROOT/config/unicorn.rb
+RAILS_ENV=dlvecnet bundle exec unicorn -D -E deployment -c $RAILS_ROOT/config/unicorn.rb

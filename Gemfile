@@ -54,10 +54,6 @@ group :assets do
   gem 'compass-susy-plugin', '0.9'
 end
 
-group :production, :integration do
-  gem 'passenger', '3.0.13'
-end
-
 gem 'activerecord-import'
 group :development, :test do
   gem 'sqlite3'
