@@ -223,11 +223,11 @@ class GenericFile < ActiveFedora::Base
     if width > height
       # horizontal img, scale < 1
       target_width = [150, width].min
-      target_height = [200, (200*scale).to_i].min
+      target_height = (target_width * scale).to_i
     else
       # vertical img, scale >= 1
-      target_width = [width, (150*scale).to_i].min
       target_height = [200, height].min
+      target_width = (target_height / scale).to_i
     end
     thumb = img.scale(target_width, target_height)
     self.thumbnail.content = thumb.to_blob
