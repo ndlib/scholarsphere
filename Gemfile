@@ -25,6 +25,8 @@ gem 'hydra-batch-edit', :git=>'git://github.com/psu-stewardship/hydra-batch-edit
 # Other components
 gem 'resque', '1.22.0', :require => 'resque/server'
 gem 'resque-pool', '0.3.0'
+gem 'statsd-ruby'
+gem 'rack-statsd'
 # NOTE: the :require arg is necessary on Linux-based hosts
 gem 'rmagick', '2.13.1', :require => 'RMagick'
 gem 'devise', '2.1.2'
