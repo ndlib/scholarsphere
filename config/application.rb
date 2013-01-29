@@ -41,7 +41,7 @@ module ScholarSphere
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.fits_path = '/Users/dbrower/Documents/fits-0.6.1/fits.sh'
+    config.fits_path = '/opt/fits-0.6.1/fits.sh'
     config.max_days_between_audits = 7
     config.id_namespace = "vecnet"
     config.application_name = "VECNet"

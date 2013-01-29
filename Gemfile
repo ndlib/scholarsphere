@@ -29,7 +29,7 @@ gem 'statsd-ruby'
 gem 'rack-statsd'
 # NOTE: the :require arg is necessary on Linux-based hosts
 gem 'rmagick', '2.13.1', :require => 'RMagick'
-gem 'devise', '2.1.2'
+gem 'devise', '2.1.3'
 gem 'paperclip', '3.3.0'
 gem 'daemons', '1.1.9'
 gem 'execjs', '1.4.0'

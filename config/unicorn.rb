@@ -9,7 +9,7 @@ worker_processes 2
 working_directory rails_root
 
 listen "/tmp/unicorn.sock.0", backlog: 1024
-#listen "/tmp/unicorn.sock.1", backlog: 1024
+listen "/tmp/unicorn.sock.1", backlog: 1024
 
 timeout 30
 
